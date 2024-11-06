@@ -1,6 +1,7 @@
 package com.example.demo.product.services;
 
 import com.example.demo.product.entities.Product;
+import com.example.demo.product.exceptions.ProductNotFoundException;
 import com.example.demo.product.repositories.ProductRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,6 @@ public class UpdateProductService implements Command<Product, Void> {
             productRepository.save(param);
             return ResponseEntity.status(HttpStatus.OK).body(null);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        throw new ProductNotFoundException();
     }
-
 }

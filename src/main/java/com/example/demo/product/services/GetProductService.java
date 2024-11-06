@@ -1,6 +1,7 @@
 package com.example.demo.product.services;
 
 import com.example.demo.product.entities.Product;
+import com.example.demo.product.exceptions.ProductNotFoundException;
 import com.example.demo.product.repositories.ProductRepository;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,6 @@ public class GetProductService implements Query<Integer, Product> {
         if (product.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(product.get());
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        throw new ProductNotFoundException();
     }
 }
