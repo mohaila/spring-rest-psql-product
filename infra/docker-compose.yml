@@ -1,0 +1,26 @@
+services:
+  productpsql:
+    image: postgres:15.8-alpine
+    container_name: productpsql
+    restart: unless-stopped
+    volumes:
+      - ./data/productpsql:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=demo
+      - POSTGRES_DB=demo
+    ports:
+    - 5432:5432
+
+  pgadmin4:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin4
+    restart: unless-stopped
+    volumes:
+      - ./data/pgadmin:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.org
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_LISTEN_PORT=5000
+    ports:
+      - 5000:5000
