@@ -1,7 +1,6 @@
 package com.example.demo.product.commands;
 
 import com.example.demo.product.entities.Product;
-
 import lombok.Data;
 
 @Data

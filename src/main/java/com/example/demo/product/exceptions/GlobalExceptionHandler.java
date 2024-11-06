@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import jakarta.validation.ConstraintViolationException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -15,5 +17,20 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleProductNotFoundException(ProductNotFoundException exception) {
         return new ErrorResponse(exception.getMessage());
 
+    }
+
+    @ExceptionHandler(ProductNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorResponse handleProductNotValidException(ProductNotValidException exception) {
+        return new ErrorResponse(exception.getMessage());
+
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorResponse handleProductNotValidConstraints(ConstraintViolationException exception) {
+        return new ErrorResponse(exception.getConstraintViolations().iterator().next().getMessage());
     }
 }
