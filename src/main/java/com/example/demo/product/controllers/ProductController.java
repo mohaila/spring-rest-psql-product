@@ -9,6 +9,9 @@ import com.example.demo.product.services.GetAllProductsService;
 import com.example.demo.product.services.GetProductService;
 import com.example.demo.product.services.SearchProductService;
 import com.example.demo.product.services.UpdateProductService;
+
+import jakarta.validation.Valid;
+
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -57,13 +60,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createProduct(@RequestBody CreateProduct param) {
+    public ResponseEntity<Void> createProduct(@Valid @RequestBody CreateProduct param) {
         Product product = param.toEntity();
         return createProductService.execute(product);
     }
 
     @PutMapping
-    public ResponseEntity<Void> updateProduct(@RequestBody UpdateProduct param) {
+    public ResponseEntity<Void> updateProduct(@Valid @RequestBody UpdateProduct param) {
         Product product = param.toEntity();
         return updateProductService.execute(product);
     }
